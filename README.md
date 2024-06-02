@@ -3,6 +3,49 @@
 
 <img width="319" alt="Screenshot 2024-06-01 at 9 25 49 PM" src="https://github.com/mikeramrz/BottomNavBarBadge/assets/11188935/75628399-ec61-4a00-88ce-4b4ac752c0be">
 
+
+##### You can even do this in tabs within screens
+```
+PrimaryTabRow(selectedTabIndex = selectedTabIndex) {
+                tabDestinations.forEachIndexed { index, tabDestination ->
+                    Tab(
+                        icon = {
+                            if (tabDestination == FriendScreenTabDestinations.REQUESTS && friendRequestsUiState is FriendRequestsUiState.Success
+                                && friendRequestsUiState.friendRequests.any { it.seen.not() }
+                            ) {
+                                BadgedBox(
+                                    badge = {
+                                        Badge {
+                                            Text(text = friendRequestsUiState.friendRequests.count { it.seen.not() }
+                                                .toString())
+                                        }
+                                    }) {
+                                    Icon(
+                                        imageVector = tabDestination.selectedIcon,
+                                    )
+                                }
+
+                            } else {
+                                Icon(
+                                    imageVector = tabDestination.selectedIcon,
+                                )
+                            }
+
+                        },
+                        selected = selectedTabIndex == index,
+                        onClick = { selectedTabIndex = index },
+                        text = {
+                            Text(text = (stringResource(id = tabDestination.titleTextId)))
+                        }
+                    )
+                }
+            }
+```
+
+
+<img width="321" alt="Screenshot 2024-06-01 at 9 59 11 PM" src="https://github.com/mikeramrz/BottomNavBarBadge/assets/11188935/2bae692b-247e-436a-865d-ee5fede460b1">
+
+
 ##### We start by getting the data we need in our app state as such. Where we get a map of top level destinations and then attatch some value to them in a map.
 
 ```
@@ -110,42 +153,4 @@ We check if each destination has any unread or markers to show and use Material 
 ```
  [bar_badge_example.webm](https://github.com/mikeramrz/BottomNavBarBadge/assets/11188935/cd22bb8f-783c-44b2-b3b7-8f8101a3449e)
 
-##### You can even do this in tabs within screens
-```
-PrimaryTabRow(selectedTabIndex = selectedTabIndex) {
-                tabDestinations.forEachIndexed { index, tabDestination ->
-                    Tab(
-                        icon = {
-                            if (tabDestination == FriendScreenTabDestinations.REQUESTS && friendRequestsUiState is FriendRequestsUiState.Success
-                                && friendRequestsUiState.friendRequests.any { it.seen.not() }
-                            ) {
-                                BadgedBox(
-                                    badge = {
-                                        Badge {
-                                            Text(text = friendRequestsUiState.friendRequests.count { it.seen.not() }
-                                                .toString())
-                                        }
-                                    }) {
-                                    Icon(
-                                        imageVector = tabDestination.selectedIcon,
-                                    )
-                                }
 
-                            } else {
-                                Icon(
-                                    imageVector = tabDestination.selectedIcon,
-                                )
-                            }
-
-                        },
-                        selected = selectedTabIndex == index,
-                        onClick = { selectedTabIndex = index },
-                        text = {
-                            Text(text = (stringResource(id = tabDestination.titleTextId)))
-                        }
-                    )
-                }
-            }
-```
-
-<img width="321" alt="Screenshot 2024-06-01 at 9 59 11 PM" src="https://github.com/mikeramrz/BottomNavBarBadge/assets/11188935/2bae692b-247e-436a-865d-ee5fede460b1">
