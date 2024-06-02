@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BottomNavBarBadge</string>
+    <string name="feature_title_dashboard">Dashboard</string>
+    <string name="feature_title_meetings">Meetings</string>
+    <string name="feature_title_friends">Friends</string>
+    <string name="feature_title_settings">Settings</string>
+</resources>
